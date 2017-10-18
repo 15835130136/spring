@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
     <bean id="chinese" class="com.demo.Chinese">
         <property name="axe" ref="stoneAxe" />
     </bean>
     <bean id="stoneAxe" class="com.demo.StoneAxe" />
     <bean id="win" class="javax.swing.JFrame" />
     <bean id="date" class="java.util.Date" />
+    
+    <bean id="check" class="com.demo.Check"/>
+       
+    <aop:config>
+    <aop:aspect id="checkTest" ref="check">
+    <aop:pointcut id="cut"
+    		expression="execution(public * *(..))"    />
+    <aop:before method="beforeTest" pointcut-ref="cut"/>
+    <aop:after method="afterTest" pointcut-ref="cut"/>
+    </aop:aspect>
+    
+    </aop:config>
+    
 </beans>
